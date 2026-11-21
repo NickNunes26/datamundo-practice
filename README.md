@@ -15,7 +15,7 @@ This project started as an exercise from the DataMundo *SQL for Data Analysis* t
 4. **Government accounts** — Customers in the `Government` segment.
 5. **Top 10 orders** — Largest orders recorded by total value.
 6. **Cancelled orders** — Cancelled orders sorted by value and payment method.
-7. **Sales targets** — Sales reps with monthly targets above R$ 50,000.
+7. **Sales targets** — Sales reps with monthly targets above BRL 50,000.
 
 **Deeper analysis (`JOIN`s & aggregations)**
 8. **Delivered revenue by sales rep** — Total and monthly average delivered revenue vs. `monthly_target`.
@@ -26,12 +26,12 @@ This project started as an exercise from the DataMundo *SQL for Data Analysis* t
 
 ## Key Findings
 
-- **Inventory risk:** 3 products are below 15 units — `Monitor UltraWide 34"` (5), `Notebook Gamer Z5` (8), and `Workstation W3` (12). All three are high-ticket items (R$ 2,599 to R$ 7,899) and should be prioritized for restocking.
-- **Cancellations:** 12 orders were cancelled, totaling R$ 28,940.00. `Card` accounts for the highest lost value (5 orders, R$ 18,476.00), while `Bank Slip` has the highest cancellation rate at **16.7%** (4 of 24 orders) — roughly 3x the rate of `Card` (5.9%) and `Instant Transfer` (5.3%).
-- **Pending high-value orders:** 2 of the top 10 orders (`#91` at R$ 8,799.00 and `#155` at R$ 6,480.00) are still `Pending` and worth following up before they expire or cancel.
-- **Monthly trend:** Delivered revenue rose **+59.9%** in Feb 2024 (R$ 102,096.60). Mar 2024 already reached R$ 91,750.20 (36 delivered orders) with data only through March 15.
-- **Sales rep performance:** `Ricardo Mendes` (R$ 69,300.30), `Fernanda Lima` (R$ 61,382.60), and `Juliana Rocha` (R$ 59,480.00) lead total delivered revenue across the 4-month window. Monthly averages sit below 40% of `monthly_target` for all 7 reps.
-- **Margins & dead stock:** `Accessories` has the highest average gross margin (56.4%) vs. `Laptops` (34.6%). 5 catalog items have zero recorded sales, led by `Notebook Essencial E2` (R$ 112,495.50 in stock) and `Tablet Essencial 8"` (R$ 47,960.00).
+- **Inventory risk:** 3 products are below 15 units — `Monitor UltraWide 34"` (5), `Notebook Gamer Z5` (8), and `Workstation W3` (12). All three are high-ticket items (BRL 2,599 to BRL 7,899) and should be prioritized for restocking.
+- **Cancellations:** 12 orders were cancelled, totaling BRL 28,940.00. `Card` accounts for the highest lost value (5 orders, BRL 18,476.00), while `Bank Slip` has the highest cancellation rate at **16.7%** (4 of 24 orders) — roughly 3x the rate of `Card` (5.9%) and `Instant Transfer` (5.3%).
+- **Pending high-value orders:** 2 of the top 10 orders (`#91` at BRL 8,799.00 and `#155` at BRL 6,480.00) are still `Pending` and worth following up before they expire or cancel.
+- **Monthly trend:** Delivered revenue rose **+59.9%** in Feb 2024 (BRL 102,096.60). Mar 2024 already reached BRL 91,750.20 (36 delivered orders) with data only through March 15.
+- **Sales rep performance:** `Ricardo Mendes` (BRL 69,300.30), `Fernanda Lima` (BRL 61,382.60), and `Juliana Rocha` (BRL 59,480.00) lead total delivered revenue across the 4-month window. Monthly averages sit below 40% of `monthly_target` for all 7 reps.
+- **Margins & dead stock:** `Accessories` has the highest average gross margin (56.4%) vs. `Laptops` (34.6%). 5 catalog items have zero recorded sales, led by `Notebook Essencial E2` (BRL 112,495.50 in stock) and `Tablet Essencial 8"` (BRL 47,960.00).
 
 ### Visuals
 
