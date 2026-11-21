@@ -51,12 +51,16 @@ The raw tables from [`SQL/seed_techstore.sql`](SQL/seed_techstore.sql) are mappe
 
 ```text
 .
+├── .github/workflows/
+│   └── ci.yml                        # Runs pytest on push / PR
 ├── SQL/
 │   ├── seed_techstore.sql            # Raw schema and seed data (PT-BR)
 │   └── views_en.sql                  # English semantic / i18n views
 ├── docs/
 │   ├── revenue_by_rep.png            # Chart: delivered revenue by rep
 │   └── cancellations_by_payment.png  # Chart: cancellation rate and value
+├── tests/
+│   └── test_data.py                  # Row counts, i18n mapping, FK & bounds checks
 ├── first_week_report.ipynb           # Main analysis notebook
 ├── requirements.txt
 ├── .gitignore
@@ -73,3 +77,11 @@ jupyter notebook first_week_report.ipynb
 ```
 
 Run all cells from top to bottom. The setup cell loads `SQL/seed_techstore.sql` and `SQL/views_en.sql` into an in-memory DuckDB instance and defines a `sql()` helper that returns pandas DataFrames.
+
+## Tests
+
+```bash
+pytest -v
+```
+
+Checks row-count parity between raw tables and English views, verifies all categorical values are translated, and validates foreign keys and numeric bounds. Also runs automatically via GitHub Actions on push to `main`.
