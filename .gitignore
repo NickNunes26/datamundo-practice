@@ -1,4 +1,5 @@
 .env
+*.env
 .venv/
 __pycache__/
 .pytest_cache/
@@ -8,9 +9,3 @@ __pycache__/
 trabalho-*/
 .DS_Store
 Thumbs.db
-
-# Ignore scratch markdown notes, keep README.md
-*.md
-!README.md
-
-!README.md

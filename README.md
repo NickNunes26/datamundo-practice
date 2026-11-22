@@ -1,94 +1,24 @@
-# TechStore First Week Report
+# DataMundo Practice
 
-[![Data Quality Tests](https://github.com/NickNunes26/techstore-first-week-report/actions/workflows/ci.yml/badge.svg)](https://github.com/NickNunes26/techstore-first-week-report/actions/workflows/ci.yml)
+[![Data Quality Tests](https://github.com/NickNunes26/datamundo-practice/actions/workflows/ci.yml/badge.svg)](https://github.com/NickNunes26/datamundo-practice/actions/workflows/ci.yml)
 
-SQL analysis of a fictional Brazilian electronics retailer (**TechStore**), built around a first-week reporting scenario covering products, inventory, customers, orders, sales targets, and category margins.
+Repository of hands-on SQL and data analysis projects developed during the DataMundo track, organized by module.
 
-This project started as an exercise from the DataMundo *SQL for Data Analysis* track and was refactored to run locally using DuckDB, pandas, and matplotlib. The raw synthetic seed (`SQL/seed_techstore.sql`) stays untouched in Portuguese, while a SQL view layer (`SQL/views_en.sql`) translates table names, columns, and categorical labels into English for reporting.
+## Structure
 
-## Questions Covered
+### Modulo 1
 
-**Initial report (filtering & sorting)**
-1. **Product catalog** — Full product list grouped by category and sorted by price.
-2. **Low stock alert** — Products with fewer than 15 units remaining.
-3. **Customer distribution** — Overview of the customer base ordered by state.
-4. **Government accounts** — Customers in the `Government` segment.
-5. **Top 10 orders** — Largest orders recorded by total value.
-6. **Cancelled orders** — Cancelled orders sorted by value and payment method.
-7. **Sales targets** — Sales reps with monthly targets above BRL 50,000.
+| # | Project | Description | Status |
+|---|---------|-------------|--------|
+| 1 | [TechStore First Week Report](Modulo%201/projeto-relatorio-da-primeira-semana-1/README.md) | SQL reporting & analysis (filtering, JOINs, CTEs, window functions) with DuckDB, pandas, matplotlib, and pytest data quality checks | Completed |
+| 2 | [Dashboard de Performance da Equipe](Modulo%201/projeto-dashboard-de-performance-da-equipe-2/README.md) | Sales team performance dashboard for TechStore leadership | In progress |
 
-**Deeper analysis (`JOIN`s & aggregations)**
-8. **Delivered revenue by sales rep** — Total and monthly average delivered revenue vs. `monthly_target`.
-9. **Cancellation rate by payment method** — Order volume vs. lost revenue across `Card`, `Bank Slip`, and `Instant Transfer`.
-10. **Gross margin by category** — Average margin and retail inventory value per category.
-11. **Zero-sale products** — Catalog items with no recorded line items in `order_items`.
-12. **Monthly revenue trend** — Month-over-month delivered vs. cancelled revenue using a CTE and `LAG` window function.
+## Running Tests
 
-## Key Findings
-
-- **Inventory risk:** 3 products are below 15 units — `Monitor UltraWide 34"` (5), `Notebook Gamer Z5` (8), and `Workstation W3` (12). All three are high-ticket items (BRL 2,599 to BRL 7,899) and should be prioritized for restocking.
-- **Cancellations:** 12 orders were cancelled, totaling BRL 28,940.00. `Card` accounts for the highest lost value (5 orders, BRL 18,476.00), while `Bank Slip` has the highest cancellation rate at **16.7%** (4 of 24 orders) — roughly 3x the rate of `Card` (5.9%) and `Instant Transfer` (5.3%).
-- **Pending high-value orders:** 2 of the top 10 orders (`#91` at BRL 8,799.00 and `#155` at BRL 6,480.00) are still `Pending` and worth following up before they expire or cancel.
-- **Monthly trend:** Delivered revenue rose **+59.9%** in Feb 2024 (BRL 102,096.60). Mar 2024 already reached BRL 91,750.20 (36 delivered orders) with data only through March 15.
-- **Sales rep performance:** `Ricardo Mendes` (BRL 69,300.30), `Fernanda Lima` (BRL 61,382.60), and `Juliana Rocha` (BRL 59,480.00) lead total delivered revenue across the 4-month window. Monthly averages sit below 40% of `monthly_target` for all 7 reps.
-- **Margins & dead stock:** `Accessories` has the highest average gross margin (56.4%) vs. `Laptops` (34.6%). 5 catalog items have zero recorded sales, led by `Notebook Essencial E2` (BRL 112,495.50 in stock) and `Tablet Essencial 8"` (BRL 47,960.00).
-
-### Visuals
-
-![Monthly Delivered vs Cancelled Revenue](docs/monthly_revenue.png)
-
-![Delivered Revenue by Sales Rep](docs/revenue_by_rep.png)
-
-![Cancellations by Payment Method](docs/cancellations_by_payment.png)
-
-## Data Model & i18n Layer
-
-The raw tables from [`SQL/seed_techstore.sql`](SQL/seed_techstore.sql) are mapped into English reporting views in [`SQL/views_en.sql`](SQL/views_en.sql) (translating column names plus `category`, `segment`, `region`, `status`, and `payment_method` values):
-
-| Raw Table | English View | Rows | Description |
-|-----------|--------------|------|-------------|
-| `produtos` | `products` | 23 | Product catalog, pricing, cost, and current stock |
-| `clientes` | `customers` | 47 | Customers across Retail, Corporate, and Government |
-| `vendedores` | `sales_reps` | 7 | Sales team, region, hire date, and monthly target |
-| `pedidos` | `orders` | 165 | Orders from Dec 2023 to Mar 2024 (Delivered, In Transit, Pending, Cancelled) |
-| `itens_pedido` | `order_items` | 182 | Line items linking orders to products |
-
-## Project Structure
-
-```text
-.
-├── .github/workflows/
-│   └── ci.yml                        # Runs pytest on push / PR
-├── SQL/
-│   ├── seed_techstore.sql            # Raw schema and seed data (PT-BR)
-│   └── views_en.sql                  # English semantic / i18n views
-├── docs/
-│   ├── monthly_revenue.png           # Chart: monthly delivered vs. cancelled revenue
-│   ├── revenue_by_rep.png            # Chart: delivered revenue by rep
-│   └── cancellations_by_payment.png  # Chart: cancellation rate and value
-├── tests/
-│   └── test_data.py                  # Row counts, i18n mapping, FK & bounds checks
-├── first_week_report.ipynb           # Main analysis notebook
-├── requirements.txt
-├── .gitignore
-└── README.md
-```
-
-## Setup
-
-```bash
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-jupyter notebook first_week_report.ipynb
-```
-
-Run all cells from top to bottom. The setup cell loads `SQL/seed_techstore.sql` and `SQL/views_en.sql` into an in-memory DuckDB instance and defines a `sql()` helper that returns pandas DataFrames.
-
-## Tests
+From the repository root:
 
 ```bash
 pytest -v
 ```
 
-Checks row-count parity between raw tables and English views, verifies all categorical values are translated, and validates foreign keys and numeric bounds. Also runs automatically via GitHub Actions on push to `main`.
+GitHub Actions automatically runs the test suite on pushes and pull requests to `main`.
